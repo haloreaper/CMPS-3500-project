@@ -45,41 +45,30 @@ def search(element, column, mydict):
 def cleanup(mydict):
     row = 0
     rows_to_remove = []
-    keys_to_remove = []
     for line in mydict:
         row = row + 1
-        # Get list of keys from first dict in list of dicts
-        once = 1
-        while (once):
-            key_list = line.keys()
-            #print(key_list)
-            once = 0
-        val_list = line.values()
-        #print("before")
-        #print(val_list)
-
         for k,v in line.items():
-            #print(k,v)
+            # Add rows with empty values to array
             if (v == ''):
-                #print(k,v)
-                #print(line)
                 rows_to_remove.append(line)
+    
+    # Iterate through array of empty value rows and delete them
     for i in range(0, len(rows_to_remove)):
-        #print(mydict[i])
         if rows_to_remove[i] in mydict:
-            #print(rows_to_remove[i])
             mydict.remove(rows_to_remove[i])
-        
-        #for i in range(0, len(val_list)):
-            #val_list[i] = re.sub('[^\d]','', val_list[i])
-            #if (val_list[i] == ''):
-                #print("Row number for " + str(val_list[i]) + " is " + str(row))
-                #rows_to_remove.append(row)
-    #for i in range(0, len(rows_to_remove)):
-        #print(rows_to_remove[i])
-        #print(mydict[rows_to_remove[i] - 1])
-        #del mydict[rows_to_remove[i] - 1 - i]
 
+    # Iterate through each line in mydict
+    for line in mydict:
+        # Iterate through each key value pair in each line
+        for k,v in line.items():
+            # Replace all non-numerical values with an empty string
+            v = re.sub('[^\d]','',v)
+            if v == '':
+                # Remove the key from the current line if it contains an empty string value
+                line.pop(k, None)
+            
+
+            
 
 # Create a list of dicts
 mydict = csv_to_dict('exampledata.csv')
