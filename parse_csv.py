@@ -48,8 +48,8 @@ def cleanup(mydict):
     for line in mydict:
         row = row + 1
         for k,v in line.items():
-            # Add rows with empty values to array
-            if (v == ''):
+            # Add rows with empty and None values to array
+            if v == '' or v == None:
                 rows_to_remove.append(line)
     
     # Iterate through array of empty value rows and delete them
@@ -57,8 +57,11 @@ def cleanup(mydict):
         if rows_to_remove[i] in mydict:
             mydict.remove(rows_to_remove[i])
 
+    row = 0
+    rows_to_remove = []
     # Iterate through each line in mydict
     for line in mydict:
+        row = row + 1
         # Iterate through each key value pair in each line
         for k,v in line.items():
             # Replace all non-numerical values with an empty string
@@ -66,7 +69,19 @@ def cleanup(mydict):
             if v == '':
                 # Remove the key from the current line if it contains an empty string value
                 line.pop(k, None)
-            
+        
+        values = list(line.values())
+        # Find the lines that have duplicated values
+        if len(values) != len(set(values)):
+            print("dupes")
+            rows_to_remove.append(line)
+    
+    # Iterate through array of rows with duplicates and delete them
+    for i in range(0, len(rows_to_remove)):
+        if rows_to_remove[i] in mydict:
+            mydict.remove(rows_to_remove[i])
+
+
 
             
 
