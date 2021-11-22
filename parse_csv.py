@@ -112,30 +112,34 @@ while (option != 0):
     print("0 - Quit")
 
     option = input("Enter an option...\n")
-
+    
     if (option == 1):
+        # Input has to be surrounded byt single quotes for now
         csv_choice = input("Type the file you wish to load 'filename.csv'\n");
         csv_choice = str(csv_choice)
         try:
-            mydict = csv_to_dict(csv_choice)
-            cleanup(mydict)
-            print("Data loaded and cleaned\n\n")
+             mydict = csv_to_dict(csv_choice)
+             cleanup(mydict)
+             print("Data loaded and cleaned\n\n")
         except:
-            print("Error occured\n")
+            print("Error occured\n\n")
         continue
     if (option == 2):
+        # no single quotes needed for number input
         search_choice1 = input("Enter the number you want to search for\n")
         search_choice1 = str(search_choice1)
+        # single quotes needed again for column name
         search_choice2 = input("Enter the column name you want to search in, or enter 'DataSet' to search the entire cleaned csv file\n\n")
         search_choice2 = str(search_choice2)
         try:
             search(search_choice1, search_choice2, mydict)
         except:
-            print("Error occured\n")
+            print("Error occured\n\n")
         continue
     if (option == 3):
         printDict(mydict)
         continue
+
 
 
 
