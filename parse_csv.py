@@ -1,8 +1,9 @@
 import csv
 import re
 
-def getList(dict):
-    return dict.keys()
+def printDict(mydict):
+    for line in mydict:
+        print(line)
 
 def csv_to_dict(filename):
     result_list=[]
@@ -42,10 +43,13 @@ def search(element, column, mydict):
 
 
 def cleanup(mydict):
+    row = 0
+    rows_to_remove = []
+    keys_to_remove = []
     for line in mydict:
+        row = row + 1
         # Get list of keys from first dict in list of dicts
         once = 1
-        keys_to_remove = []
         while (once):
             key_list = line.keys()
             #print(key_list)
@@ -53,21 +57,35 @@ def cleanup(mydict):
         val_list = line.values()
         #print("before")
         #print(val_list)
-        
-        for i in range(0, len(val_list)):
-            val_list[i] = re.sub('[^\d]','', val_list[i])
-            if (val_list[i] == ''):
-                keys_to_remove.append(key_list[val_list.index('')])
-        #print(keys_to_remove)
 
-        #print("after")
-        #print(val_list)
-        #    if (value == ''):
-        #        keys_to_remove.append()
-            #print(value)
+        for k,v in line.items():
+            #print(k,v)
+            if (v == ''):
+                #print(k,v)
+                #print(line)
+                rows_to_remove.append(line)
+    for i in range(0, len(rows_to_remove)):
+        #print(mydict[i])
+        if rows_to_remove[i] in mydict:
+            #print(rows_to_remove[i])
+            mydict.remove(rows_to_remove[i])
+        
+        #for i in range(0, len(val_list)):
+            #val_list[i] = re.sub('[^\d]','', val_list[i])
+            #if (val_list[i] == ''):
+                #print("Row number for " + str(val_list[i]) + " is " + str(row))
+                #rows_to_remove.append(row)
+    #for i in range(0, len(rows_to_remove)):
+        #print(rows_to_remove[i])
+        #print(mydict[rows_to_remove[i] - 1])
+        #del mydict[rows_to_remove[i] - 1 - i]
 
 
 # Create a list of dicts
 mydict = csv_to_dict('exampledata.csv')
-#cleanup(mydict)
-search('25', "Column A", mydict)
+print("before")
+printDict(mydict)
+cleanup(mydict)
+print("after")
+printDict(mydict)
+#search('25', "Column A", mydict)
