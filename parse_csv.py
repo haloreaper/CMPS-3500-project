@@ -99,203 +99,276 @@ def cleanup(mydict):
 
 # counts how many elements are in the dataset
 def Count(mydict):
-    count1 = 0
-    count2 = 0
+    data = []
+    numkeys = 0
+    keys = []
     for line in mydict:
         for k in line:
-            if k == 'Column A':
-                count1 = count1 + 1
-            else:
-                count2 = count2 + 1
-        #count = count + 1
-    
-    #print("There are " + str(count) + " elements in the dataset.")
-    print("Count        " + str(count1) + "       " + str(count2) + "\n")
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("Count       "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        count = len(data)
+        print("{:11s}".format(str(count))), #+ "       " + str(len(mydict)) + "\n")
+        del data[:]
+    print("")
 
 def Unique(mydict):
-    data1 = [10000]
-    data2 = [10000]
-    total1 = 0
-    total2 = 0
+    data = []
+    numkeys = 0
+    keys = []
     for line in mydict:
-        for k, v in line.items():
-            if k == "Column A":
-                data1.append(int(v))
-            else:
-                data2.append(int(v))
-    total1 = len(set(data1))
-    total2 = len(set(data2))
-    print("Unique       " + str(total1) + "        "+ str(total2)+ "\n")
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("Unique      "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        print("{:11s}".format(str(len(set(data))))),
+        del data[:]
+    print("") 
+
 def Mean(mydict):
-    count1 = 0
-    mean1 = 0
-    count2 = 0
-    mean2 = 0
+    data = []
+    numkeys = 0
+    keys = []
+    mean = 0
+    count = 0
     for line in mydict:
-        for k, v in line.items():
-            if k == 'Column A':
-               mean1 = mean1 + int(v)
-               count1 = count1 + 1
-            else:
-               mean2 = mean2 + int(v)
-               count2 = count2 + 1
-    mean1 = mean1/count1
-    mean2 = mean2/count2
-    print("Mean         " + str(mean1) + "       " + str(mean2) + "\n")
-    
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("Mean        "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        for i in range(len(data)):
+            mean = mean + data[i]
+        mean = mean/len(data)
+        print("{:11s}".format(str(round(mean,4)))),
+        mean = 0
+        del data[:]
+    print("") 
+
 def Median(mydict):
+    data = []
+    numkeys = 0
+    keys = []
     high = 0
     low = 0
-    mid1 = 0
-    mid2 = 0
-    swap = 0
-    for line in mydict:
-        for k, v in line.items():
-            if k == 'Column A':
-                if high == 0:
-                    high = v
-                elif low == 0:
-                    low = v
-                elif mid1 == 0:
-                    mid1 = v
-
-                if mid1 > low and mid1 < high:
-                    continue
-                elif high > low and high < mid1:
-                    swap = mid1
-                    mid1 = high
-                    high = swap
-                elif low > mid1 and low < high:
-                    swap = mid1
-                    mid1 = low
-                    low = swap
-                if low > high:
-                    swap = low
-                    low = high
-                    high = swap
-            
-            if k == 'Column B':
-                if high == 0:
-                    high = v
-                elif low == 0:
-                    low = v
-                elif mid2 == 0:
-                    mid2 = v
-
-                if mid2 > low and mid2 < high:
-                    continue
-                elif high > low and high < mid2:
-                    swap = mid2
-                    mid2 = high
-                    high = swap
-                elif low > mid2 and low < high:
-                    swap = mid2
-                    mid2 = low
-                    low = swap
-                if low > high:
-                    swap = low
-                    low = high
-                    high = swap
-    print("Median       " + str(mid1) + "      " + str(mid2) + "\n")
-
-#def Mode(mydict):
-    
-def SD(mydict):
-    mean1 = 0
-    count1 = 0
-    mean2 = 0
-    count2 = 0
-    data1 = [10000]
-    data2 = [10000]
+    mid = 0
     tmp = 0
     for line in mydict:
-        for k, v in line.items():
-            if k == 'Column A':
-               mean1 = mean1 + int(v)
-               count1 = count1 + 1
-            else:
-               mean2 = mean2 + int(v)
-               count2 = count2 + 1
-    mean1 = mean1/count1
-    mean2 = mean2/count2
-    for line in mydict:
-        for k, v in line.items():
-            if k == 'Column A':
-                tmp = int(v) - mean1
-                tmp = tmp * tmp
-                data1.append(tmp)
-                count1 = count1 + 1
-            else:
-                tmp = int(v) - mean2
-                tmp = tmp * tmp
-                data2.append(tmp)
-                count2 = count2 + 1
-    mean1 = 0
-    mean2 = 0
-    for i in range(len(data1)):
-        mean1 = mean1 + data1[i]
-    for i in range(len(data2)):
-        mean2 = mean2 + data2[i]
-    mean1 = mean1/count1
-    mean2 = mean2/count2
-    sd1 = mean1**(.5)
-    sd2 = mean2**(.5)
-    print("SD          " + str(sd1) + "  " + str(sd2) + "\n")
-    
-def Minimum(mydict):
-    minimum1 = 0
-    start1 = 0
-    minimum2 = 0
-    start2 = 0
-    for line in mydict:
-        for k, v in line.items():
-            if k == "Column A":
-                if start1 == 0:
-                    minimum1 = int(v)
-                    start1 = start1 + 1
-                if int(v) < minimum1:
-                    minimum1 = int(v)
-            else:
-                if start2 == 0:
-                    minimum2 = int(v)
-                    start2 = start2 + 1
-                if int(v) < minimum2:
-                    minimum2 = int(v)
-    print("Minimum      " + str(minimum1) + "          " + str(minimum2) + "\n");
-    
-def Maximum(mydict):
-    maximum1 = 0
-    start1 = 0
-    maximum2 = 0
-    start2 = 0
-    for line in mydict:
-        for k, v in line.items():
-            if k == "Column A":
-                if start1 == 0:
-                    maximum1 = int(v)
-                    start1 = start1 + 1
-                if int(v) > maximum1:
-                    maximum1 = int(v)
-            else:
-                if start2 == 0:
-                    maximum2 = int(v)
-                    start2 = start2 + 1
-                if int(v) > maximum2:
-                    maximum2 = int(v)
-    print("Maximum      " + str(maximum1) + "      " + str(maximum2) + "\n");
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("Median      "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+            #insert sorting algorithm
+        for j in range(len(data)):
+            if high == 0:
+                high = data[i]
+            elif mid == 0:
+                mid = data[i]
+            elif low == 0:
+                low = data[i]
+            if mid > low and mid < high:
+                continue
+            elif high > low and high < mid:
+                tmp = mid
+                mid = high
+                high = tmp
+            elif low > mid and low < high:
+                tmp = mid
+                mid = low
+                low = tmp
+            elif low > high:
+                tmp = low
+                low = high
+                high = tmp
+            low = data[j]
+        print("{:11s}".format(str(mid))),
+        del data[:]
+        mid = 0
+        high = 0
+        low = 0
+        median = 0
+    print("")
 
-def Descriptor():
-    print("Descriptor   Column A    Column B")
-    print("**********   ********    ********")
+#def Mode(mydict):
+
+def Variance(mydict):
+    data = []
+    numkeys = 0
+    keys = []
+    mean = 0
+    variance = 0
+    tmp = 0
+    for line in mydict:
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("Variance    "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        for i in range(len(data)):
+            mean = mean + data[i]
+        mean = mean/len(data) 
+        for i in range(len(data)):
+            tmp = data[i] - mean
+            tmp = tmp**(2)
+            variance = variance + tmp
+        variance = variance/len(data)
+        print("{:11s}".format(str(round(variance,4)))),
+        mean = 0
+        variance = 0
+        del data[:]
+    print("")
+
+def SD(mydict):
+    data = []
+    numkeys = 0
+    keys = []
+    mean = 0
+    tmp = 0
+    sd = 0
+    for line in mydict:
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("SD          "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        for i in range(len(data)):
+            mean = mean + data[i]
+        mean = mean/len(data) 
+        for i in range(len(data)):
+            tmp = data[i] - mean
+            tmp = tmp**(2)
+            data[i] = tmp
+        mean = 0
+        for i in range(len(data)):
+            mean = mean + data[i]
+        mean = mean/len(data)
+        sd = mean**(.5)
+        print("{:11s}".format(str(round(sd,4)))),
+        mean = 0
+        sd = 0
+        del data[:]
+    print("") 
+
+def Minimum(mydict):
+    data = []
+    numkeys = 0
+    keys = []
+    minimum = 0
+    for line in mydict:
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("Minimum     "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        for i in range(len(data)):
+            if i == 0:
+                minimum = data[i]
+            elif data[i] < minimum:
+                minimum = data[i]
+        print("{:11s}".format(str(minimum))),
+        minimum = 0
+        del data[:]
+    print("")
+
+def Maximum(mydict):
+    data = []
+    numkeys = 0
+    keys = []
+    maximum = 0
+    for line in mydict:
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("Maximum     "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        for i in range(len(data)):
+            if i == 0:
+                maximum = data[i]
+            elif data[i] > maximum:
+                maximum = data[i]
+        print("{:11s}".format(str(maximum))),
+        maximum = 0
+        del data[:]
+    print("")
+
+def Descriptor(mydict):
+    numkeys = 0
+    keys = []
+    asterisk = ''
+    for line in mydict:
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    
+    print("Descriptor  "),
+    
+    for i in range(numkeys):
+        print(keys[i] + "   "),
+    
+    print("")
+    print("**********  "),
+    
+    for i in range(numkeys):
+        asterisk = '*'
+        for j in range(len(keys[i])-1):
+            asterisk = asterisk + '*'
+        print(asterisk),
+        print("  "),
+    print("")
 
 def dataSummary(mydict):
     Count(mydict)
     Mean(mydict)
     Median(mydict)
     SD(mydict)
+    Variance(mydict)
     Minimum(mydict)
     Maximum(mydict)
     print("")
+
 # Main functions
 
 option = -1 
@@ -353,25 +426,25 @@ while (option != 0):
         continue
     if (option == 4):
         try:
-            Descriptor()
+            Descriptor(mydict)
             Count(mydict)
         except:
             print("Error occured\n\n")
         continue
     if (option == 5):
-        Descriptor()
+        Descriptor(mydict)
         Unique(mydict)
         continue
     if (option == 6):
         try:
-            Descriptor()
+            Descriptor(mydict)
             Mean(mydict)
         except:
             print("Error occured\n\n")
         continue
     if (option == 7):
         try:    
-            Descriptor()
+            Descriptor(mydict)
             Median(mydict)
         except:
             print("Error occured\n\n")
@@ -380,16 +453,21 @@ while (option != 0):
         continue
     if (option == 9):
         try:
-            Descriptor()
+            Descriptor(mydict)
             SD(mydict)
         except:
             print("Error occured\n\n")
         continue
     if (option == 10):
+        try:
+            Descriptor(mydict)
+            Variance(mydict)
+        except:
+            print("Error occured\n\n")
         continue
     if (option == 11):
         try:
-            Descriptor()
+            Descriptor(mydict)
             Minimum(mydict)
         except:
             print("Error occured\n\n")
@@ -406,15 +484,15 @@ while (option != 0):
         continue
     if (option == 17):
         try:
-            Descriptor()
+            Descriptor(mydict)
             Maximum(mydict)
         except:
             print("Error occured\n\n")
         continue
     if (option == 18):
-        #try:
-        Descriptor()
-        dataSummary(mydict)
-        #except:
-         #   print("Error occured\n\n")
-        #continue
+        try:
+            Descriptor(mydict)
+            dataSummary(mydict)
+        except:
+            print("Error occured\n\n")
+        continue
