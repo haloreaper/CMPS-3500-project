@@ -471,11 +471,11 @@ while (option != 0):
             print("Error occured\n\n")
         continue
     if (option == 7):
-        #try:    
-        Descriptor(mydict)
-        Median(mydict)
-        #except:
-        #    print("Error occured\n\n")
+        try:    
+            Descriptor(mydict)
+            Median(mydict)
+        except:
+            print("Error occured\n\n")
         continue
     if (option == 8):
         try:
