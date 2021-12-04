@@ -107,7 +107,7 @@ def Count(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("Count       "),
+    print("Count"+"{:7s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -127,7 +127,7 @@ def Unique(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("Unique      "),
+    print("Unique"+"{:6s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -148,7 +148,7 @@ def Mean(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("Mean        "),
+    print("Mean"+"{:8s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -172,7 +172,7 @@ def Median(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("Median      "),
+    print("Median"+"{:6s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -214,7 +214,7 @@ def Mode(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("Mode        "),
+    print("Mode"+"{:8s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -252,7 +252,7 @@ def Variance(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("Variance    "),
+    print("Variance"+"{:4s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -284,7 +284,7 @@ def SD(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("SD          "),
+    print("SD"+"{:10s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -318,7 +318,7 @@ def Minimum(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("Minimum     "),
+    print("Minimum"+"{:5s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -333,6 +333,40 @@ def Minimum(mydict):
         minimum = 0
         del data[:]
     print("")
+def Percentile(mydict,P):
+    data = []
+    numkeys = 0
+    keys = []
+    median = 0
+    index = 0
+    percentile = 0
+    for line in mydict:
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("P" + str(int(P*100))+"{:9s}".format(" ")),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        #########################################    
+        i = 1
+        while i < len(data):
+            j = i
+            while j > 0 and data[j-1] > data[j]:
+                tmp = data[j]
+                data[j] = data[j-1]
+                data[j-1] = tmp
+                j = j -1
+            i = i + 1
+        #########################################
+        index = len(data) * P
+        percentile = data[int(index)]
+        print("{:11s}".format(str(percentile))),
+        del data[:]
+    print("")
 
 def Maximum(mydict):
     data = []
@@ -344,7 +378,7 @@ def Maximum(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     keys = keys[:numkeys]
-    print("Maximum     "),
+    print("Maximum"+"{:5s}".format(" ")),
     for i in range(numkeys):
         for line in mydict:
             for k, v in line.items():
@@ -369,13 +403,13 @@ def Descriptor(mydict):
             keys.append(k)
     numkeys = len(set(keys))
     
-    print("Descriptor  "),
+    print("Descriptor"+"{:2s}".format(" ")),
     
     for i in range(numkeys):
         print(keys[i] + "   "),
     
     print("")
-    print("**********  "),
+    print("**********"+"{:2s}".format(" ")),
     
     for i in range(numkeys):
         asterisk = '*'
@@ -394,6 +428,11 @@ def dataSummary(mydict):
     SD(mydict)
     Variance(mydict)
     Minimum(mydict)
+    Percentile(mydict,.20)
+    Percentile(mydict,.40)
+    Percentile(mydict,.50)
+    Percentile(mydict,.60)
+    Percentile(mydict,.80)
     Maximum(mydict)
     print("")
 
@@ -432,7 +471,7 @@ while (option != 0):
         csv_choice = str(csv_choice)
         try:
              mydict = csv_to_dict(csv_choice)
-             cleanup(mydict)
+             cleanup(mydict)    
              print("Data loaded and cleaned\n\n")
         except:
             print("Error occured\n\n")
@@ -460,8 +499,11 @@ while (option != 0):
             print("Error occured\n\n")
         continue
     if (option == 5):
-        Descriptor(mydict)
-        Unique(mydict)
+        try:
+            Descriptor(mydict)
+            Unique(mydict)
+        except:
+            print("Error occured\n\n")
         continue
     if (option == 6):
         try:
@@ -506,14 +548,39 @@ while (option != 0):
             print("Error occured\n\n")
         continue
     if (option == 12):
+        try:
+            Descriptor(mydict)
+            Percentile(mydict,.20)
+        except:
+            print("Error occured\n\n")
         continue
     if (option == 13):
+        try:
+            Descriptor(mydict)
+            Percentile(mydict,.40)
+        except:
+            print("Error occured\n\n")
         continue
     if (option == 14):
+        try:
+            Descriptor(mydict)
+            Percentile(mydict,.50)
+        except:
+            print("Error occured\n\n")      
         continue
     if (option == 15):
+        try:
+            Descriptor(mydict)
+            Percentile(mydict,.60)
+        except:
+            print("Error occured\n\n")    
         continue
     if (option == 16):
+        try:
+            Descriptor(mydict)
+            Percentile(mydict,.80)
+        except:
+            print("Error occured\n\n")  
         continue
     if (option == 17):
         try:
