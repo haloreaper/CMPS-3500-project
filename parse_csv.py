@@ -166,10 +166,7 @@ def Median(mydict):
     data = []
     numkeys = 0
     keys = []
-    high = 0
-    low = 0
-    mid = 0
-    tmp = 0
+    median = 0
     for line in mydict:
         for k in line:
             keys.append(k)
@@ -181,38 +178,67 @@ def Median(mydict):
             for k, v in line.items():
                 if k == keys[i]:
                     data.append(float(v))
-            #insert sorting algorithm
-        for j in range(len(data)):
-            if high == 0:
-                high = data[i]
-            elif mid == 0:
-                mid = data[i]
-            elif low == 0:
-                low = data[i]
-            if mid > low and mid < high:
-                continue
-            elif high > low and high < mid:
-                tmp = mid
-                mid = high
-                high = tmp
-            elif low > mid and low < high:
-                tmp = mid
-                mid = low
-                low = tmp
-            elif low > high:
-                tmp = low
-                low = high
-                high = tmp
-            low = data[j]
-        print("{:11s}".format(str(mid))),
+        #########################################    
+        i = 1
+        while i < len(data):
+            j = i
+            while j > 0 and data[j-1] > data[j]:
+                tmp = data[j]
+                data[j] = data[j-1]
+                data[j-1] = tmp
+                j = j -1
+            i = i + 1
+        #########################################
+        
+        if len(data)%2 == 0:
+            median = data[len(data)/2]
+        else:
+            median = data[int(round(len(data)/2))]
+
+        print("{:11s}".format(str(median))),
+        
         del data[:]
-        mid = 0
-        high = 0
-        low = 0
         median = 0
     print("")
 
-#def Mode(mydict):
+def Mode(mydict):
+    data = []
+    numkeys = 0
+    keys = []
+    UV = []
+    numvalues = 0
+    mode = 0
+    index = 0
+    for line in mydict:
+        for k in line:
+            keys.append(k)
+    numkeys = len(set(keys))
+    keys = keys[:numkeys]
+    print("Mode        "),
+    for i in range(numkeys):
+        for line in mydict:
+            for k, v in line.items():
+                if k == keys[i]:
+                    data.append(float(v))
+        numvalues = len(set(data))
+        UV = [0] * len(data)
+        for j in range(len(data)):
+            for k in range(len(data)):
+                if data[j] == data[k]:
+                    UV[j] = UV[j] + 1
+        UV = UV[:numvalues]
+        data = data[:numvalues]
+        for i in range(len(UV)):
+            if UV[i] > mode:
+                mode = UV[i]
+                index = i
+        if mode > 1:
+            print("{:11s}".format(str(data[index]))),
+        else:
+            print("{:11s}".format("no mode")),
+        mode = 0
+        del data[:]
+    print("")
 
 def Variance(mydict):
     data = []
@@ -361,8 +387,10 @@ def Descriptor(mydict):
 
 def dataSummary(mydict):
     Count(mydict)
+    Unique(mydict)
     Mean(mydict)
     Median(mydict)
+    Mode(mydict)
     SD(mydict)
     Variance(mydict)
     Minimum(mydict)
@@ -443,13 +471,18 @@ while (option != 0):
             print("Error occured\n\n")
         continue
     if (option == 7):
-        try:    
-            Descriptor(mydict)
-            Median(mydict)
-        except:
-            print("Error occured\n\n")
+        #try:    
+        Descriptor(mydict)
+        Median(mydict)
+        #except:
+        #    print("Error occured\n\n")
         continue
     if (option == 8):
+        try:
+            Descriptor(mydict)
+            Mode(mydict)
+        except:
+            print("Error occured\n\n")
         continue
     if (option == 9):
         try:
