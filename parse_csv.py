@@ -484,6 +484,8 @@ def Percentile(mydict,P,List):
         for j in range(length):
             data.append(List[count])
             count = count + 1
+        # sets index equal to the length of data times the value of P
+        # this number should be the percentile we are looking for
         index = len(data) * P
         percentile = data[int(index)]
         print("{:11s}".format(str(percentile))),
