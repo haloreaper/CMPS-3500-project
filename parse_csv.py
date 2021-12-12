@@ -118,7 +118,7 @@ def Count(mydict):
                     data.append(float(v))
         # sets count equal to the size of the current column
         count = len(data)
-        print("{:11s}".format(str(count))), #+ "       " + str(len(mydict)) + "\n")
+        print("{:14s}".format(str(count))), #+ "       " + str(len(mydict)) + "\n")
        
         # resets data for the next column
         del data[:]
@@ -150,7 +150,7 @@ def Unique(mydict):
         
         # prints the number of unique values that are in the current column
         # len(set(data)) removes all duplicates
-        print("{:11s}".format(str(len(set(data))))),
+        print("{:14s}".format(str(len(set(data))))),
 
         # resets data for the next column
         del data[:]
@@ -189,7 +189,7 @@ def Mean(mydict):
         # divides the mean variable by the length of the current column to finish
         # calculating mean and then prints
         mean = mean/len(data)
-        print("{:11s}".format(str(round(mean,4)))),
+        print("{:14s}".format(str(round(mean,4)))),
 
         # rest mean and data
         mean = 0
@@ -232,7 +232,7 @@ def Median(mydict,List):
         else:
             median = data[int(round(len(data)/2))]
 
-        print("{:11s}".format(str(median))),
+        print("{:14s}".format(str(median))),
         
         # resets data and median
         del data[:]
@@ -290,9 +290,9 @@ def Mode(mydict,List):
 
         # prints whether there is a mode or not
         if mode > 1:
-            print("{:11s}".format(str(data[index]))),
+            print("{:14s}".format(str(data[index]))),
         else:
-            print("{:11s}".format("no mode")),
+            print("{:14s}".format("no mode")),
 
         # resets mode and data
         mode = 0
@@ -341,7 +341,7 @@ def Variance(mydict):
 
         # finishes by dividing by length of column
         variance = variance/len(data)
-        print("{:11s}".format(str(round(variance,4)))),
+        print("{:14s}".format(str(round(variance,4)))),
 
         # resets mean, variance, and data
         mean = 0
@@ -399,7 +399,7 @@ def SD(mydict):
 
         # takes the squreroot of the new mean to get standard deviation
         sd = mean**(.5)
-        print("{:11s}".format(str(round(sd,4)))),
+        print("{:14s}".format(str(round(sd,4)))),
 
         # resets mean, sd, and data
         mean = 0
@@ -442,7 +442,7 @@ def Minimum(mydict):
                 minimum = data[i]
             elif data[i] < minimum:
                 minimum = data[i]
-        print("{:11s}".format(str(minimum))),
+        print("{:14s}".format(str(minimum))),
 
         # reset minimum and data
         minimum = 0
@@ -484,7 +484,7 @@ def Percentile(mydict,P,List):
         # this number should be the percentile we are looking for
         index = len(data) * P
         percentile = data[int(index)]
-        print("{:11s}".format(str(percentile))),
+        print("{:14s}".format(str(percentile))),
         del data[:]
     print("")
 
@@ -523,7 +523,7 @@ def Maximum(mydict):
                 maximum = data[i]
             elif data[i] > maximum:
                 maximum = data[i]
-        print("{:11s}".format(str(maximum))),
+        print("{:14s}".format(str(maximum))),
         
         # reset maximum and data
         maximum = 0
@@ -548,7 +548,7 @@ def Descriptor(mydict):
     
     # prints the name of each column
     for i in range(numkeys):
-        print(keys[i] + "{:3s}".format("   ")),
+        print(keys[i] + "{:6s}".format("   ")),
     
     print("")
     print("**********"+"{:2s}".format(" ")),
@@ -560,7 +560,7 @@ def Descriptor(mydict):
         for j in range(len(keys[i])-1):
             asterisk = asterisk + '*'
         print(asterisk),
-        print("{:2s}".format(" ")),
+        print("{:5s}".format(" ")),
     print("")
 
 # sort function that is called whenever a file is called to be cleaned
