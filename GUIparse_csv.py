@@ -59,7 +59,7 @@ def search(element, column, mydict):
 
 # Does most of the cleanup related things, removes empty and missing rows first
 # Then removes keys/columns with non-numerical data
-# Finally removes rows with duplicated numbers within the row
+# Finally removes duplicate rows
 
 def cleanup(mydict):
     row = 0
@@ -76,11 +76,8 @@ def cleanup(mydict):
         if rows_to_remove[i] in mydict:
             mydict.remove(rows_to_remove[i])
 
-    row = 0
-    rows_to_remove = []
     # Iterate through each line in mydict
     for line in mydict:
-        row = row + 1
         # Iterate through each key value pair in each line
         for k,v in line.items():
             # Replace all non-numerical values with an empty string
@@ -88,17 +85,14 @@ def cleanup(mydict):
             if v == '':
                 # Remove the key from the current line if it contains an empty string value
                 line.pop(k, None)
-        
-        values = list(line.values())
-        # Find the lines that have duplicated values
-        if len(values) != len(set(values)):
-            #print("dupes")
-            rows_to_remove.append(line)
     
-    # Iterate through array of rows with duplicates and delete them
-    for i in range(0, len(rows_to_remove)):
-        if rows_to_remove[i] in mydict:
-            mydict.remove(rows_to_remove[i])
+    # Iterate through lines in mydict while adding non duplicates to new array
+    res = []
+    for line in mydict:
+        if line not in res:
+            res.append(line)
+    # Sets mydict to the list of no duplicates
+    mydict[:] = list(res)
 
 # counts the number of elements in the dataset
 def Count(mydict):
