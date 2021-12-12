@@ -109,7 +109,7 @@ def Count(mydict):
     # places the unique keys into the keys list
     keys = keys[:numkeys]
     
-    print("Count"+"{:7s}".format(" ")),
+    print("Count"+"{:11s}".format(" "),end='')
     # reads in values for v in line.items() as long as mydict is not at the end appends
     # them to the data list. executes a number of times equal to the size of numkeys
     for i in range(numkeys):
@@ -119,7 +119,7 @@ def Count(mydict):
                     data.append(float(v))
         # sets count equal to the size of the current column
         count = len(data)
-        print("{:11s}".format(str(count))), #+ "       " + str(len(mydict)) + "\n")
+        print("{:18s}".format(str(count)),end='')
        
         # resets data for the next column
         del data[:]
@@ -140,7 +140,7 @@ def Unique(mydict):
     #places the unique keys into the keys list
     keys = keys[:numkeys]
 
-    print("Unique"+"{:6s}".format(" ")),
+    print("Unique"+"{:10s}".format(" "),end='')
     # reads in values for v in line.items() as long as mydict is not at the end appends
     # them to the data list. executes a number of times equal to the size of numkeys 
     for i in range(numkeys):
@@ -151,7 +151,7 @@ def Unique(mydict):
         
         # prints the number of unique values that are in the current column
         # len(set(data)) removes all duplicates
-        print("{:11s}".format(str(len(set(data))))),
+        print("{:18s}".format(str(len(set(data)))),end='')
 
         # resets data for the next column
         del data[:]
@@ -173,7 +173,7 @@ def Mean(mydict):
 
     #places the unique keys into the keys list
     keys = keys[:numkeys]
-    print("Mean"+"{:8s}".format(" ")),
+    print("Mean"+"{:12}".format(" "),end='')
     
     # reads in values for v in line.items() as long as mydict is not at the end appends
     # them to the data list. executes a number of times equal to the size of numkeys
@@ -190,7 +190,7 @@ def Mean(mydict):
         # divides the mean variable by the length of the current column to finish
         # calculating mean and then prints
         mean = mean/len(data)
-        print("{:11s}".format(str(round(mean,4)))),
+        print("{:18s}".format(str(round(mean,4))),end='')
 
         # rest mean and data
         mean = 0
@@ -217,23 +217,23 @@ def Median(mydict,List):
     # divides the length of the list by the length of the keys to get how
     # long each column is
     length = len(List)/len(keys)
-    print("Median"+"{:6s}".format(" ")),
+    print("Median"+"{:10s}".format(" "),end='')
     
     # reads in values from List up to the size of length and appends them to data. 
     # it will execute this a number of times equal to the len(keys)
     for i in range(len(keys)):
-        for j in range(length):
+        for j in range(int(length)):
             data.append(List[count])
             count = count + 1  
         
         # checks to see where the middle of data is, after that it sets
         # median equal to that value
         if len(data)%2 == 0:
-            median = data[len(data)/2]
+            median = data[int(len(data)/2)]
         else:
             median = data[int(round(len(data)/2))]
 
-        print("{:11s}".format(str(median))),
+        print("{:18s}".format(str(median)),end='')
         
         # resets data and median
         del data[:]
@@ -261,12 +261,12 @@ def Mode(mydict,List):
     # divides the length of the list by the length of the keys to get how
     # long each column is
     length = len(List)/numkeys
-    print("Mode"+"{:8s}".format(" ")),
+    print("Mode"+"{:12s}".format(" "),end='')
     
     # reads in values from List up to the size of length and appends them to data. 
     # it will execute this a number of times equal to the len(keys)
     for i in range(numkeys):
-        for j in range(length):
+        for j in range(int(length)):
             data.append(List[count])
             count = count + 1
         
@@ -291,9 +291,9 @@ def Mode(mydict,List):
 
         # prints whether there is a mode or not
         if mode > 1:
-            print("{:11s}".format(str(data[index]))),
+            print("{:18s}".format(str(data[index])),end='')
         else:
-            print("{:11s}".format("no mode")),
+            print("{:18s}".format("no mode"),end='')
 
         # resets mode and data
         mode = 0
@@ -318,7 +318,7 @@ def Variance(mydict):
     
     #places the unique keys into the keys list
     keys = keys[:numkeys]
-    print("Variance"+"{:4s}".format(" ")),
+    print("Variance"+"{:8s}".format(" "),end='')
     
     # reads in values for v in line.items() as long as mydict is not at the end appends
     # them to the data list. executes a number of times equal to the size of numkeys
@@ -342,7 +342,7 @@ def Variance(mydict):
 
         # finishes by dividing by length of column
         variance = variance/len(data)
-        print("{:11s}".format(str(round(variance,4)))),
+        print("{:18s}".format(str(round(variance,4))),end='')
 
         # resets mean, variance, and data
         mean = 0
@@ -368,7 +368,7 @@ def SD(mydict):
     
     #places the unique keys into the keys list
     keys = keys[:numkeys]
-    print("SD"+"{:10s}".format(" ")),
+    print("SD"+"{:14s}".format(" "),end='')
     
     # reads in values for v in line.items() as long as mydict is not at the end appends
     # them to the data list. executes a number of times equal to the size of numkeys
@@ -400,7 +400,7 @@ def SD(mydict):
 
         # takes the squreroot of the new mean to get standard deviation
         sd = mean**(.5)
-        print("{:11s}".format(str(round(sd,4)))),
+        print("{:18s}".format(str(round(sd,4))),end='')
 
         # resets mean, sd, and data
         mean = 0
@@ -424,7 +424,7 @@ def Minimum(mydict):
     
     #places the unique keys into the keys list
     keys = keys[:numkeys]
-    print("Minimum"+"{:5s}".format(" ")),
+    print("Minimum"+"{:9s}".format(" "),end='')
     
     # reads in values for v in line.items() as long as mydict is not at the end appends
     # them to the data list. executes a number of times equal to the size of numkeys
@@ -443,7 +443,7 @@ def Minimum(mydict):
                 minimum = data[i]
             elif data[i] < minimum:
                 minimum = data[i]
-        print("{:11s}".format(str(minimum))),
+        print("{:18s}".format(str(minimum)),end='')
 
         # reset minimum and data
         minimum = 0
@@ -473,17 +473,17 @@ def Percentile(mydict,P,List):
     # divides the length of the list by the length of the keys to get how
     # long each column is
     length = len(List)/len(keys)
-    print("P" + str(int(P*100))+"{:9s}".format(" ")),
+    print("P" + str(int(P*100))+"{:13s}".format(" "),end='')
     
     # reads in values for v in line.items() as long as mydict is not at the end appends
     # them to the data list. executes a number of times equal to the size of numkeys
     for i in range(len(keys)):
-        for j in range(length):
+        for j in range(int(length)):
             data.append(List[count])
             count = count + 1
         index = len(data) * P
         percentile = data[int(index)]
-        print("{:11s}".format(str(percentile))),
+        print("{:18s}".format(str(percentile)),end='')
         del data[:]
     print("")
 
@@ -503,7 +503,7 @@ def Maximum(mydict):
 
     #places the unique keys into the keys list
     keys = keys[:numkeys]
-    print("Maximum"+"{:5s}".format(" ")),
+    print("Maximum"+"{:9s}".format(" "),end='')
     
     # reads in values for v in line.items() as long as mydict is not at the end appends
     # them to the data list. executes a number of times equal to the size of numkeys
@@ -522,7 +522,7 @@ def Maximum(mydict):
                 maximum = data[i]
             elif data[i] > maximum:
                 maximum = data[i]
-        print("{:11s}".format(str(maximum))),
+        print("{:18s}".format(str(maximum)),end='')
         
         # reset maximum and data
         maximum = 0
@@ -543,14 +543,14 @@ def Descriptor(mydict):
     numkeys = len(set(keys))
     
     # prints the word descriptor
-    print("Descriptor"+"{:2s}".format(" ")),
+    print("Descriptor"+"{:6s}".format(" "),end='')
     
     # prints the name of each column
     for i in range(numkeys):
-        print(keys[i] + "{:3s}".format("   ")),
+        print(keys[i] + "{:10s}".format("   "),end='')
     
     print("")
-    print("**********"+"{:2s}".format(" ")),
+    print("**********"+"{:6s}".format(" "),end='')
     
     # prints a number of asterisks equal to the length
     # of the name of the column
@@ -558,8 +558,8 @@ def Descriptor(mydict):
         asterisk = '*'
         for j in range(len(keys[i])-1):
             asterisk = asterisk + '*'
-        print(asterisk),
-        print("{:2s}".format(" ")),
+        print(asterisk,end='')
+        print("{:10s}".format(" "),end='')
     print("")
 
 # sort function that is called whenever a file is called to be cleaned
