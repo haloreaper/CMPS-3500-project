@@ -629,7 +629,11 @@ def dataSummary(mydict,List):
 # that is displayed on the terminal but the defintions below 
 # are for the buttons that are clicked on the gui.  
 
-mydict = csv_to_dict(str('InputDataSample.csv'))
+try:
+    mydict = csv_to_dict(str('InputDataSample.csv'))
+except:
+    messagebox.showinfo("Error", "Could not load in data")
+
 global data 
 
 def option1():       
@@ -822,7 +826,7 @@ frm.grid()
 # Displays the all the Menu Options on the gui instead of terminal all results still 
 # print on the terminal as of now. 
 ttk.Label(frm, text="Menu Options:", font= ('Aerial 17 bold italic')).grid(column=1, row=0)
-ttk.Label(frm, text="1. Retrieve/clean data from a csv file.  ", font= ('Aerial 12')).grid(column=1, row=3)
+ttk.Label(frm, text="1. Clean/sort data from a csv file.  ", font= ('Aerial 12')).grid(column=1, row=3)
 ttk.Label(frm, text="2. Search for a variable. ", font= ('Aerial 12')).grid(column=1, row=4)
 ttk.Label(frm, text="3. Print loaded data.  ", font= ('Aerial 12')).grid(column=1, row=5)
 ttk.Label(frm, text="4. Find the Count. ", font= ('Aerial 12')).grid(column=1, row=6)
@@ -839,7 +843,7 @@ ttk.Label(frm, text="14. Find the 50th Percentile.", font= ('Aerial 12')).grid(c
 ttk.Label(frm, text="15. Find the 60th Percentile.", font= ('Aerial 12')).grid(column=1, row=17)
 ttk.Label(frm, text="16. Find the 80th Percentile.", font= ('Aerial 12')).grid(column=1, row=18)
 ttk.Label(frm, text="17. Find the Maximum.", font= ('Aerial 12')).grid(column=1, row=19)
-ttk.Label(frm, text="18. Prnt a Data Summary.", font= ('Aerial 12')).grid(column=1, row=20)
+ttk.Label(frm, text="18. Print a Data Summary.", font= ('Aerial 12')).grid(column=1, row=20)
 
 # These are all the lines of code for displaying all the buttons on the display 
 # and each line of code calls one of the definitons mentioned above. 
