@@ -76,6 +76,8 @@ def cleanup(mydict):
         if rows_to_remove[i] in mydict:
             mydict.remove(rows_to_remove[i])
 
+    columns_to_remove = []
+    
     # Iterate through each line in mydict
     for line in mydict:
         # Iterate through each key value pair in each line
@@ -83,9 +85,15 @@ def cleanup(mydict):
             # Replace all non-numerical values with an empty string
             v = re.sub('[^\d]','',v)
             if v == '':
-                # Remove the key from the current line if it contains an empty string value
-                line.pop(k, None)
+                # Add the key from the current line to a new array if it contains an empty string value
+                if k not in columns_to_remove:
+                    columns_to_remove.append(k)
     
+    # Iterate through array to delete columns with empty string values
+    for i in columns_to_remove:
+        for line in mydict:
+            del line[i]
+
     # Iterate through lines in mydict while adding non duplicates to new array
     res = []
     for line in mydict:
@@ -629,16 +637,25 @@ def dataSummary(mydict,List):
 # that is displayed on the terminal but the defintions below 
 # are for the buttons that are clicked on the gui.  
 
-try:
-    mydict = csv_to_dict(str('InputDataSample.csv'))
-except:
-    messagebox.showinfo("Error", "Could not load in data")
+#try:
+#    mydict = csv_to_dict(str('InputDataSample.csv'))
+#except:
+#    messagebox.showinfo("Error", "Could not load in data")
+
+mydict = []
 
 global data 
 
 def option1():       
     
     try:
+        loaddict = input("Enter the file you want to load in string format\n")
+        mydict[:] = csv_to_dict(str(loaddict))
+    
+    except:
+        messagebox.showinfo("Error", "Error loading data")
+
+    try:    
         cleanup(mydict)
         global data
         data = Sort(mydict)
@@ -826,7 +843,7 @@ frm.grid()
 # Displays the all the Menu Options on the gui instead of terminal all results still 
 # print on the terminal as of now. 
 ttk.Label(frm, text="Menu Options:", font= ('Aerial 17 bold italic')).grid(column=1, row=0)
-ttk.Label(frm, text="1. Clean/sort data from a csv file.  ", font= ('Aerial 12')).grid(column=1, row=3)
+ttk.Label(frm, text="1. Load and Clean/Sort data from a csv file.  ", font= ('Aerial 12')).grid(column=1, row=3)
 ttk.Label(frm, text="2. Search for a variable. ", font= ('Aerial 12')).grid(column=1, row=4)
 ttk.Label(frm, text="3. Print loaded data.  ", font= ('Aerial 12')).grid(column=1, row=5)
 ttk.Label(frm, text="4. Find the Count. ", font= ('Aerial 12')).grid(column=1, row=6)
