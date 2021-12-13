@@ -649,7 +649,7 @@ global data
 def option1():       
     
     try:
-        loaddict = input("Enter the file you want to load in string format\n")
+        loaddict = input("Enter the file you want to load in\n")
         mydict[:] = csv_to_dict(str(loaddict))
     
     except:
